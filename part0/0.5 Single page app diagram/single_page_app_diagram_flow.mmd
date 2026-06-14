@@ -1,0 +1,29 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note right of browser: The Browser request the Spa web from the Server
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server-->>browser: 200 OK, here is the spa html file
+    deactivate server
+
+    Note right of browser: The Browser asks for the css file for the Spa page from the Server
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: 200 OK, here is the css file
+    deactivate server
+
+    Note right of browser: The Browser asks for the js file of the Spa Page and starts executing the JavaScript code that fetches the JSON from the Server
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: 200 OK, here is the js file
+    deactivate server
+
+    Note right of browser: The Browser starts executing the JavaScript code that fetches the JSON from the Server
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.json
+    activate server
+    server-->>browser: 200 OK, here is content: [{ "content": "1", "date": "2026-06-13" }, ... ]
+    deactivate server
+
+    Note right of browser: The Browser executes the callback function that renders the spa json data

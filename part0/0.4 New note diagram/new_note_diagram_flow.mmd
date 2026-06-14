@@ -1,0 +1,40 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note right of browser: The Browser sends a user text field note Form to the Server with a POST request, after clicking a Save button
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    server-->>browser: 302 Found, processed the new data
+    deactivate server
+
+    Note left of server: The Server will accept the text note and ask the Browser to perform a web refresh to the Notes page
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: 200 OK, here is the notes html file
+    deactivate server
+
+    Note right of browser: The Browser request and receives the new Notes web from the Server
+    
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: 200 OK, here is the css file
+    deactivate server
+
+    Note right of browser: The Browser asks for the css file for the Notes page from the Server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: 200 OK, here is the js file
+    deactivate server
+
+    Note right of browser: The Browser asks for the js file of the Notes Page and starts executing the JavaScript code that fetches the JSON from the Server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: 200 OK, here is content: [{ "content": "1", "date": "2026-06-13" }, ... ]
+    deactivate server
+
+    Note right of browser: The Browser executes the callback function that renders the updated notes json data

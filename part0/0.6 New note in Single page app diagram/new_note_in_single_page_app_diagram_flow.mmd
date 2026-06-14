@@ -1,0 +1,13 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note right of browser: The Browser rerenders the Spa web on the go with the new note item using JavaScript Functions and Methods, after clicking a Save button
+    Note right of browser: Aftewards it sends a JSON Payload with a POST request using another JavaScript Call Function to Push the new data to the Server
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    activate server
+    server-->>browser: 201 Created, processed the new data with the app/json Payload
+    deactivate server
+
+    Note left of server: The Server responds with a {"message":"note created"} response
